@@ -1,5 +1,4 @@
-How to build PlatformIO based project
-=====================================
+# How to build PlatformIO based project
 
 1. [Install PlatformIO Core](https://docs.platformio.org/page/core.html)
 2. Download [development platform with examples](https://github.com/platformio/platform-espressif32/archive/develop.zip)
@@ -25,3 +24,18 @@ $ pio run -e esp32dev --target upload
 # Clean build files
 $ pio run --target clean
 ```
+
+## IR Codes
+
+### Stereo
+
+Power:
+`0x7E8154AB`
+
+### Projector:
+
+On:
+`0x4CB340BF`
+
+Off:
+`0x4CB3748B`

@@ -1,5 +1,5 @@
 /*
- * IRremoteESP8266: IRrecvDumpV3 - dump details of IR codes with IRrecv
+ * IRremoteESP8266: IRrecvDumpV2 - dump details of IR codes with IRrecv
  * An IR detector/demodulator must be connected to the input kRecvPin.
  *
  * Copyright 2009 Ken Shirriff, http://arcfn.com
@@ -11,9 +11,6 @@
  * Changes:
  *   Version 1.2 October, 2020
  *     - Enable easy setting of the decoding tolerance value.
- *   Version 1.1 May, 2020
- *     - Create DumpV3 from DumpV2
- *     - Add OTA Base
  *   Version 1.0 October, 2019
  *     - Internationalisation (i18n) support.
  *     - Stop displaying the legacy raw timing info.
@@ -29,10 +26,6 @@
  * Based on Ken Shirriff's IrsendDemo Version 0.1 July, 2009,
  */
 
-// Allow over air update
-// #define OTA_ENABLE true
-#include "BaseOTA.h"
-
 #include <Arduino.h>
 #include <assert.h>
 #include <IRrecv.h>
@@ -46,11 +39,11 @@
 // e.g. D5 on a NodeMCU board.
 // Note: GPIO 16 won't work on the ESP8266 as it does not have interrupts.
 // Note: GPIO 14 won't work on the ESP32-C3 as it causes the board to reboot.
-#ifdef ARDUINO_ESP32C3_DEV
-const uint16_t kRecvPin = 10;  // 14 on a ESP32-C3 causes a boot loop.
-#else  // ARDUINO_ESP32C3_DEV
+// #ifdef ARDUINO_ESP32C3_DEV
+// const uint16_t kRecvPin = 10;  // 14 on a ESP32-C3 causes a boot loop.
+// #else  // ARDUINO_ESP32C3_DEV
 const uint16_t kRecvPin = 14;
-#endif  // ARDUINO_ESP32C3_DEV
+// #endif  // ARDUINO_ESP32C3_DEV
 
 // The Serial connection baud rate.
 // i.e. Status message will be sent to the PC at this baud rate.
@@ -135,7 +128,6 @@ decode_results results;  // Somewhere to store the results
 
 // This section of code runs only once at start-up.
 void setup() {
-  OTAwifi();  // start default wifi (previously saved on the ESP) for OTA
 #if defined(ESP8266)
   Serial.begin(kBaudRate, SERIAL_8N1, SERIAL_TX_ONLY);
 #else  // ESP8266
@@ -148,7 +140,6 @@ void setup() {
   assert(irutils::lowLevelSanityCheck() == 0);
 
   Serial.printf("\n" D_STR_IRRECVDUMP_STARTUP "\n", kRecvPin);
-  OTAinit();  // setup OTA handlers and show IP
 #if DECODE_HASH
   // Ignore messages with less than minimum on or off pulses.
   irrecv.setUnknownThreshold(kMinUnknownSize);
@@ -188,5 +179,4 @@ void loop() {
     Serial.println();    // Blank line between entries
     yield();             // Feed the WDT (again)
   }
-  OTAloopHandler();
 }
