@@ -28,11 +28,7 @@ struct PROJECTOR_SCREEN: Service::LightBulb {
       Serial.println("DOWN");
       transmitterX.send(5321682, 24);
     }
-
-    // digitalWrite(ledPin,power->getNewVal());        
-
-    // return true to indicate the update was successful (otherwise create code
-    // to return false if some reason you could not turn on the LED)
+    
     return(true);
   }
 };
