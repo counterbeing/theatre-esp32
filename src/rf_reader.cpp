@@ -3,8 +3,11 @@
 
 
 RCSwitch mySwitch = RCSwitch();
+RCSwitch mySwitch2 = RCSwitch();
 
 #define RXD2 27
+
+unsigned long startTime;
 
 
 void setup() {
@@ -14,6 +17,9 @@ void setup() {
   pinMode(RXD2, INPUT);
 
   mySwitch.enableReceive(digitalPinToInterrupt(RXD2));
+  mySwitch2.enableTransmit(26);
+
+  startTime = millis();
 }
 
 // The repeating section of the code
@@ -29,5 +35,11 @@ void loop() {
     Serial.println( mySwitch.getReceivedProtocol() );
 
     mySwitch.resetAvailable();
+  }
+
+    if (millis() - startTime >= 5000) {
+       Serial.println("SENDING");
+      mySwitch2.send(5321684, 24);
+      startTime = millis();
   }
 }
