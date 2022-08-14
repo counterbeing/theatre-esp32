@@ -25,14 +25,14 @@ $ pio run -e esp32dev --target upload
 $ pio run --target clean
 ```
 
-## IR Codes
+## IR and RF Codes
 
 ### Stereo
 
 Power:
 `0x7E8154AB`
 
-```
+```text
   IR_YamahaReceiverOFF [{'data':'7E81FE01','type':'NEC','length':32}]
   IR_YamahaReceiverON [{'data':'7E817E81','type':'NEC','length':32}]
 ```

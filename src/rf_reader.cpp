@@ -1,62 +1,57 @@
-// #include <Arduino.h>
-// #include <RCSwitch.h>
-// #include "HomeSpan.h"
-// #include "dev_screen.h"
+#include <Arduino.h>
+#include <RCSwitch.h>
+#include "HomeSpan.h"
+#include "dev_screen.h"
+#include "dev_receiver.h"
+#include "dev_projector.h"
 
 
 
-// RCSwitch mySwitch = RCSwitch();
-// RCSwitch mySwitch2 = RCSwitch();
+#define RXD2 27
+#define RF_TX 26
 
-// #define RXD2 27
-// #define RF_TX 26
-
-// unsigned long startTime;
+unsigned long startTime;
 
 
-// void setup() {
-//   Serial.begin(115200);
+void setup() {
+  Serial.begin(115200);
 
-//   homeSpan.begin(Category::Lighting,"Projector Screen");
+  homeSpan.begin(Category::Outlets,"Projector Screen");
   
-//   new SpanAccessory(); 
-  
-//     new Service::AccessoryInformation(); 
-//       new Characteristic::Identify();                
-//     new PROJECTOR_SCREEN(RF_TX); 
-//       new SpanAccessory(); 
-//     new Service::AccessoryInformation();    
-//       new Characteristic::Identify();   
+  new SpanAccessory(); 
+    new Service::AccessoryInformation(); 
+      new Characteristic::Name("Projector Screen");
+      new Characteristic::Manufacturer("Cory"); 
+      new Characteristic::SerialNumber("123-ABC");   
+      new Characteristic::Model("Projector Screen");
+      new Characteristic::FirmwareRevision("1");
+      new Characteristic::Identify();                
+    new PROJECTOR_SCREEN(RF_TX); 
 
-//   pinMode(RXD2, INPUT);
+  new SpanAccessory(); 
+    new Service::AccessoryInformation(); 
+      new Characteristic::Name("Receiver");
+      new Characteristic::Manufacturer("Cory"); 
+      new Characteristic::SerialNumber("123-ABC");   
+      new Characteristic::Model("Yamaha RX-v373");
+      new Characteristic::Identify();                
+      new RECEIVER(); 
 
-//   mySwitch.enableReceive(digitalPinToInterrupt(RXD2));
-//   // mySwitch2.enableTransmit(RF_TX);
+  new SpanAccessory(); 
+    new Service::AccessoryInformation(); 
+      new Characteristic::Name("Projector");
+      new Characteristic::Manufacturer("Cory"); 
+      new Characteristic::SerialNumber("123-ABC");   
+      new Characteristic::Model("Projector");
+      new Characteristic::Identify();                
+      new PROJECTOR(); 
+    // pinMode(4, OUTPUT);
+}
 
-//   startTime = millis();
-// }
-
-// // The repeating section of the code
-// void loop() {
-//     homeSpan.poll();
-
-//     if (mySwitch.available()) {
-    
-//     Serial.print("Received ");
-//     Serial.print( mySwitch.getReceivedValue() );
-//     Serial.print(" / ");
-//     Serial.print( mySwitch.getReceivedBitlength() );
-//     Serial.print("bit ");
-//     Serial.print("Protocol: ");
-//     Serial.println( mySwitch.getReceivedProtocol() );
-
-//     mySwitch.resetAvailable();
-//   }
-
-//   //   if (millis() - startTime >= 5000) {
-//   //      Serial.println("SENDING");
-//   //     // mySwitch2.send(5321684, 24);
-//   //     // mySwitch2.send(5321682, 24);
-//   //     startTime = millis();
-//   // }
-// }
+void loop() {
+    homeSpan.poll();
+    // digitalWrite(4, HIGH);   // turn the LED on (HIGH is the voltage level)
+    // delay(9000);                       // wait for a second
+    // digitalWrite(4, LOW);    // turn the LED off by making the voltage LOW
+    // delay(1000);     
+}
