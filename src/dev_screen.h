@@ -23,8 +23,12 @@ struct PROJECTOR_SCREEN: Service::Outlet {
     if (value == 1) {
       Serial.println("UP");
       transmitterX.send(5321684, 24);
+      delay(1000);
+      transmitterX.send(5321684, 24);
     } else {
       Serial.println("DOWN");
+      transmitterX.send(5321682, 24);
+      delay(1000);
       transmitterX.send(5321682, 24);
     }
     

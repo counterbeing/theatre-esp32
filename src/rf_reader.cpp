@@ -51,7 +51,7 @@ void setup() {
 void loop() {
     homeSpan.poll();
     // digitalWrite(4, HIGH);   // turn the LED on (HIGH is the voltage level)
-    // delay(9000);                       // wait for a second
+    // delay(3000);                       // wait for a second
     // digitalWrite(4, LOW);    // turn the LED off by making the voltage LOW
     // delay(1000);     
 }

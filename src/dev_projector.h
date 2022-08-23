@@ -17,12 +17,17 @@ struct PROJECTOR: Service::Outlet {
     if (value == 1) {
       Serial.println("PROJECTOR ON");
       irsend2.sendNEC(0x4CB340BF);
+      delay(1000);
+      irsend2.sendNEC(0x4CB340BF);
     } else {
       Serial.println("PROJECTOR OFF");
+      delay(500);
       irsend2.sendNEC(0x4CB3748B);
-      delay(750);
+      delay(1000);
       irsend2.sendNEC(0x4CB3748B);
-      delay(750);
+      delay(1000);
+      irsend2.sendNEC(0x4CB3748B);
+      delay(1000);
       irsend2.sendNEC(0x4CB3748B);
     }
     
